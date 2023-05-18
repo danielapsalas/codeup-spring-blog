@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Roll Dice Game</h1>
+
+    <ul>
+        <li><a th:href="@{/rollDice/1}">1</a></li>
+        <li><a th:href="@{/rollDice/2}">2</a></li>
+        <li><a th:href="@{/rollDice/3}">3</a></li>
+        <li><a th:href="@{/rollDice/4}">4</a></li>
+        <li><a th:href="@{/rollDice/5}">5</a></li>
+        <li><a th:href="@{/rollDice/6}">6</a></li>
+    </ul>
+
+    <p th:text="${userGuess}"></p>
+    <p th:text="${diceRoll}"></p>
+    <p th:text="${guess}"></p>
+</body>
+</html>

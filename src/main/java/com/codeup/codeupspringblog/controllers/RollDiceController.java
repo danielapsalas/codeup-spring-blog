@@ -1,12 +1,10 @@
-package com.codeup.codeupspringblog;
+package com.codeup.codeupspringblog.controllers;
 import org.springframework.ui.Model;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Random;
-
 @Controller
-public class RollDice {
+public class RollDiceController {
 //    @RequestParam int randomNum, Model model
     @GetMapping("/rollDice")
     public String rollDice (){

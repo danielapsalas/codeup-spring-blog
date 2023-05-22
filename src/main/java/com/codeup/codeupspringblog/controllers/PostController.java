@@ -41,15 +41,14 @@ public class PostController {
     }
 
     @RequestMapping("/posts/create")
-    public String createPostForm() {
+    public String createPostForm(Model model) {
+        model.addAttribute("post", new Post());
         return "posts/create";
     }//jsps
 
     @PostMapping(path = "/posts/create")
-    public String creatPost(@RequestParam ("title") String title, @RequestParam ("body") String body){
+    public String creatPost(@ModelAttribute Post post){
         //create a post object set the information for title and body
-        User user1 = userDao.findById(1L).get();
-        Post post = new Post(title, body, user1);
         postDao.save(post);
          return "redirect:/posts";//url
 

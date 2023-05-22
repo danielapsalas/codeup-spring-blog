@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -7,8 +7,9 @@
 <body>
 <h1>Post Details</h1>
 <div>
-    <h2>Title: <span th:text="${post.title}"></span></h2>
-    <p>Body: <span th:text="${post.body}"></span></p>
+    <h2>Title: <span th:text="${posts.title}"></span></h2>
+    <p>Body: <span th:text="${posts.body}"></span></p>
+    <p>Email <span th:text="${posts.getUser().getEmail()}"></span></p>
 </div>
 </body>
 </html>

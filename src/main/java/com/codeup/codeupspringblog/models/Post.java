@@ -29,6 +29,18 @@ public class Post {
         this.body = body;
     }
 
+    public Post(Long id, String title, String body, User user) {
+        this.title = title;
+        this.body = body;
+        this.user = user;
+    }
+
+    public Post(String title, String body, User user) {
+        this.title = title;
+        this.body = body;
+        this.user = user;
+    }
+
     // Getter for id
     public Long getId() {
         return id;
@@ -57,6 +69,10 @@ public class Post {
     // Setter for body
     public void setBody(String body) {
         this.body = body;
+    }
+
+    public User getUser(){
+        return user;
     }
 }
 

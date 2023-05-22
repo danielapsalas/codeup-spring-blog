@@ -1,6 +1,7 @@
 package com.codeup.codeupspringblog.controllers;
 
 import com.codeup.codeupspringblog.models.Post;
+import com.codeup.codeupspringblog.models.User;
 import com.codeup.codeupspringblog.repositories.PostRepository;
 import com.codeup.codeupspringblog.repositories.UserRepository;
 import org.springframework.stereotype.Controller;
@@ -21,7 +22,7 @@ public class PostController {
     }
 
 
-    @RequestMapping("/posts")
+    @GetMapping("/posts")
     public String posts(Model model) {
 
 
@@ -32,7 +33,9 @@ public class PostController {
 
     @RequestMapping("/posts/{id}")
     public String postsid(@PathVariable Long id, Model model) {
-        model.addAttribute("posts", postDao.findById(id));
+        Post post1 = postDao.findById(id).get();
+        post1.getUser();
+        model.addAttribute("posts", post1);
 
         return "posts/show";
     }
@@ -43,11 +46,13 @@ public class PostController {
     }//jsps
 
     @PostMapping(path = "/posts/create")
-    public String creatPost(@RequestParam ("title") String title, @RequestParam ("body") String body, Model model){
+    public String creatPost(@RequestParam ("title") String title, @RequestParam ("body") String body){
         //create a post object set the information for title and body
-        Post post = new Post( 1L, title, body);
+        User user1 = userDao.findById(1L).get();
+        Post post = new Post(title, body, user1);
         postDao.save(post);
          return "redirect:/posts";//url
+
     }
 
 }

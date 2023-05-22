@@ -40,7 +40,7 @@ public class PostController {
         return "posts/show";
     }
 
-    @RequestMapping("/posts/create")
+    @GetMapping("/posts/create")
     public String createPostForm(Model model) {
         model.addAttribute("post", new Post());
         return "posts/create";
@@ -51,7 +51,18 @@ public class PostController {
         //create a post object set the information for title and body
         postDao.save(post);
          return "redirect:/posts";//url
-
     }
 
+    @GetMapping("/posts/{id}/edit")
+    public String editForm(@PathVariable("id") Long id, Model model) {
+        Post post = postDao.findPostById(id);
+        model.addAttribute("postEdit", post);
+        return "/posts/edit";
+    }
+
+    @PostMapping("posts/{id}/edit")
+    public String editPost(@ModelAttribute("postEdit") Post updatedPost) {
+        postDao.save(updatedPost);
+        return "redirect:/posts";
+    }
 }

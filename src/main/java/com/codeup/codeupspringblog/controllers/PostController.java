@@ -1,24 +1,24 @@
 package com.codeup.codeupspringblog.controllers;
 
 import com.codeup.codeupspringblog.models.Post;
-import com.codeup.codeupspringblog.models.User;
 import com.codeup.codeupspringblog.repositories.PostRepository;
 import com.codeup.codeupspringblog.repositories.UserRepository;
+import com.codeup.codeupspringblog.service.EmailService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Controller
 public class PostController {
     private final PostRepository postDao;
     private final UserRepository userDao;
 
-    public PostController(PostRepository postDao, UserRepository userDao) {
+    private final EmailService emailService;
+
+    public PostController(PostRepository postDao, UserRepository userDao, EmailService emailService) {
         this.postDao = postDao;
         this.userDao = userDao;
+        this.emailService = emailService;
     }
 
 
@@ -49,6 +49,7 @@ public class PostController {
     @PostMapping(path = "/posts/create")
     public String creatPost(@ModelAttribute Post post){
         //create a post object set the information for title and body
+        post.setUser(userDao.getReferenceById(1L));
         postDao.save(post);
          return "redirect:/posts";//url
     }
@@ -63,6 +64,15 @@ public class PostController {
     @PostMapping("posts/{id}/edit")
     public String editPost(@ModelAttribute("postEdit") Post updatedPost) {
         postDao.save(updatedPost);
+        return "redirect:/posts";
+    }
+
+    @GetMapping("/posts/email/{id}")
+    public String sendEmailAboutAd(@PathVariable Long id) {
+        Post post = postDao.getReferenceById(id);
+
+        emailService.prepareAndSend(post, "Here's information about the post you requested", post.getTitle() + " : " + post.getBody());
+
         return "redirect:/posts";
     }
 }

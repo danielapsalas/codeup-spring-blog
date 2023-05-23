@@ -16,11 +16,11 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="post : ${posts}">
-        <td th:text="${post.title}"></td>
-        <td th:text="${post.body}"></td>
-    </tr>
-    </tbody>
+    <div th:each="post : ${posts}">
+        <span th:text="${post.title}"></span>
+        <span th:text="${post.body}"></span>
+        <a th:href="@{/posts/email/{id}(id=${post.getId()})}">Email about Ad.</a>
+    </div>
 </table>
 </body>
 </html>

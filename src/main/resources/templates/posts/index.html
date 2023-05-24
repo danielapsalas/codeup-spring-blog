@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -8,14 +9,25 @@
 <body>
 <h1>All Posts</h1>
 <table>
-    <thead>
-    <tr>
-        <th>ID</th>
-        <th>Title</th>
-        <th>Body</th>
-    </tr>
-    </thead>
-    <tbody>
+    <nav>
+        <div sec:authorize="isAuthenticated()">
+            This content is only shown to authenticated users.
+
+            User ID: <span th:text="${#authentication.principal.id}"/>
+            Username: <span th:text="${#authentication.principal.username}"/>
+            Email: <span th:text="${#authentication.principal.email}"/>
+        </div>
+    </nav>
+
+    <ul>
+        <!-- More links here... -->
+        <li>
+            <form th:action="@{/logout}" th:method="post">
+                <button class="btn-link btn" style="margin-top: 8px">Logout</button>
+            </form>
+        </li>
+    </ul>
+
     <div th:each="post : ${posts}">
         <span th:text="${post.title}"></span>
         <span th:text="${post.body}"></span>

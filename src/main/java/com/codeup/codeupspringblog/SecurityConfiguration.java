@@ -46,19 +46,18 @@ public class SecurityConfiguration {
                 /* Pages that can be viewed without having to log in */
                 .and()
                 .authorizeHttpRequests()
-                .requestMatchers("/", "/posts", "/posts/{id}", "/sign-up") // anyone can see home, the ads pages, and sign up
-                .permitAll()
-                /* Pages that require authentication */
-                .and()
-                .authorizeHttpRequests()
                 .requestMatchers(
                         "/posts/create", // only authenticated users can create ads
                         "/posts/{id}/edit" // only authenticated users can edit ads
                 )
+                .permitAll()
+                /* Pages that require authentication */
+                .and()
+                .authorizeHttpRequests()
+                .requestMatchers("/", "/posts", "/posts/{id}", "/sign-up") // anyone can see home, the ads pages, and sign up
                 .authenticated()
         ;
         return http.build();
     }
 
 }
-
